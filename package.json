@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Vadim-Vatrya/goit-nodejs-all-homework#readme",
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "shortid": "^2.2.16"
   }
 }
