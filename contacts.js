@@ -48,7 +48,7 @@ const  removeContact = async contactId => {
     console.table(filteredContact)
 
     await fs.writeFile(contactsPath, JSON.stringify(filteredContact, null, 2))
-    console.log(`Contact with id ${filteredContact} was removed`);
+    console.log(`Contact with id ${contactId} was removed`);
   } catch(err) {
     console.log(err);
   }
