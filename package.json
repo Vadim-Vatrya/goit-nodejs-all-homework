@@ -1,0 +1,24 @@
+{
+  "name": "homework-1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vadim-Vatrya/goit-nodejs-all-homework.git"
+  },
+  "author": "Vadim Vatrya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vadim-Vatrya/goit-nodejs-all-homework/issues"
+  },
+  "homepage": "https://github.com/Vadim-Vatrya/goit-nodejs-all-homework#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
