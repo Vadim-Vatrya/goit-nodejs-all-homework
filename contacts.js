@@ -13,7 +13,7 @@ const contactsPath = path.join(__dirname, './db/contacts.json')
 
 const listContacts = async() => {
   try {
-    const data = await fs.readFile(contactsPath)
+    const data = await fs.readFile(contactsPath, 'utf-8')
     const contacts = JSON.parse(data)
     console.table(contacts)
   } catch(err) {
@@ -23,7 +23,7 @@ const listContacts = async() => {
 
 const  getContactById = async contactId => {
   try {
-    const data = await fs.readFile(contactsPath)
+    const data = await fs.readFile(contactsPath, 'utf-8')
     const contacts = JSON.parse(data)
     const contactById = contacts.find(
       ({id}) => id === contactId
@@ -41,9 +41,9 @@ const  getContactById = async contactId => {
 
 const  removeContact = async contactId => {
   try {
-    const data = await fs.readFile(contactsPath)
-    const contacts = JSON.parse(data.toString())
-    const filteredContact = contacts.find(
+    const data = await fs.readFile(contactsPath, 'utf-8')
+    const contacts = JSON.parse(data)
+    const filteredContact = contacts.filter(
       ({id}) => id === contactId)
     console.table(filteredContact)
 
@@ -56,7 +56,7 @@ const  removeContact = async contactId => {
 
 const addContact = async(name, email, phone) => {
   try {
-    const data = await fs.readFile(contactsPath)
+    const data = await fs.readFile(contactsPath, 'utf-8')
     const contacts = JSON.parse(data)
     const newContact = {
       id: shortid.generate(),
