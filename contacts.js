@@ -18,6 +18,7 @@ const listContacts = async() => {
 
     console.log('List of contacts')
     console.table(contacts)
+
     return contacts
   } catch(err) {
     return console.log('Error:', err.message);
@@ -38,6 +39,7 @@ const  getContactById = async contactId => {
 
     console.log(`Contact with id ${contactId}`)
     console.table(contactById)
+
     return contactId
   } catch(err) {
     return console.log('Error:', err.message);
@@ -56,7 +58,10 @@ const  removeContact = async contactId => {
       }
 
     await fs.writeFile(contactsPath, JSON.stringify(filteredContacts, null, 2), "utf-8")
-    console.log(`Contact with id ${contactId} was removed`)
+
+    console.log(`Contact was removed`)
+    console.table(filteredContacts)
+
     return filteredContacts
   } catch(err) {
     return console.log('Error:', err.message);
@@ -88,9 +93,11 @@ const addContact = async(name, email, phone) => {
     }
   
     const contactList = [...contacts, newContact]
-    console.log(contactList);
     await fs.writeFile(contactsPath, JSON.stringify(contactList, null, 2), 'utf-8')
+
     console.log(`Contact was added`)
+    console.table(contactList)
+    
     return contactList
   } catch(err) {
     return console.log('Error:', err.message);
