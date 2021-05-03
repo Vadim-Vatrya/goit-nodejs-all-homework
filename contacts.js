@@ -15,9 +15,12 @@ const listContacts = async() => {
   try {
     const data = await fs.readFile(contactsPath, 'utf-8')
     const contacts = JSON.parse(data)
+
+    console.log('List of contacts')
     console.table(contacts)
+    return contacts
   } catch(err) {
-    console.log(err);
+    return console.log('Error:', err.message);
   }
 }
 
@@ -30,12 +33,14 @@ const  getContactById = async contactId => {
     )
 
     if(!contactById) {
-      console.log(`Contact with id ${contactById} is not found`);
+      return console.log(`Contact with id: ${contactById} is not found`);
     }
 
+    console.log(`Contact with id ${contactId}`)
     console.table(contactById)
+    return contactId
   } catch(err) {
-    console.log(err);
+    return console.log('Error:', err.message);
   }
 }
 
@@ -43,14 +48,18 @@ const  removeContact = async contactId => {
   try {
     const data = await fs.readFile(contactsPath, 'utf-8')
     const contacts = JSON.parse(data)
-    const filteredContact = contacts.filter(
+    const filteredContacts = contacts.filter(
       ({id}) => id !== contactId)
-    console.table(filteredContact)
 
-    await fs.writeFile(contactsPath, JSON.stringify(filteredContact, null, 2))
-    console.log(`Contact with id ${contactId} was removed`);
+      if(contacts.length === filteredContacts.length) {
+        return console.log(`Contact with id: ${contactId} is not found`);
+      }
+
+    await fs.writeFile(contactsPath, JSON.stringify(filteredContacts, null, 2), "utf-8")
+    console.log(`Contact with id ${contactId} was removed`)
+    return filteredContacts
   } catch(err) {
-    console.log(err);
+    return console.log('Error:', err.message);
   }
 }
 
@@ -58,20 +67,33 @@ const addContact = async(name, email, phone) => {
   try {
     const data = await fs.readFile(contactsPath, 'utf-8')
     const contacts = JSON.parse(data)
+
+    if (contacts.find(contact => contact.name === name)) {
+      return console.log('This name is in the contact list');
+    }
+
+    if (contacts.find(contact => contact.email === email)) {
+      return console.log('This email is in the contact list');
+    }
+
+    if (contacts.find(contact => contact.phone === phone)) {
+      return console.log('This phone is in the contact list');
+    }
+
     const newContact = {
       id: shortid.generate(),
       name,
       email,
       phone
     }
-    // console.log(newContact);
+  
     const contactList = [...contacts, newContact]
     console.log(contactList);
-    await fs.writeFile(contactsPath, JSON.stringify(contactList, null, 2))
+    await fs.writeFile(contactsPath, JSON.stringify(contactList, null, 2), 'utf-8')
     console.log(`Contact was added`)
-
+    return contactList
   } catch(err) {
-    console.log(err);
+    return console.log('Error:', err.message);
   }
 }
 
@@ -85,21 +107,3 @@ module.exports = {
 
 
 
-// async function readFiles(patch) {
-//   try {
-//     const file = await fs.readFile(patch, 'utf-8')
-//     const list = JSON.parse(file)
-//     return list
-//   } catch(err) {
-//     console.log(err);
-//   }
-  
-// }
-
-// async function writeFiles(patch, data) {
-//   try {
-//     await fs.writeFile(patch, JSON.stringify(data), 'utf-8')
-//   } catch(err) {
-//     console.log(err);
-//   }
-// }
